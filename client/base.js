@@ -14,11 +14,17 @@ $(document).keydown(function(e) {
 });
 
 Template.world_grid.helpers({
-  eachRow: function() {return _.range(BOARDSIZE.y);},
+  eachRow: function() {
+    return _.range(BOARDSIZE.y).map(function(y) {
+      return {y: y};
+    });
+  },
   eachCell: function() {
-    var y = this.valueOf();
+    var coords = this;
     return _.range(BOARDSIZE.x).map(function(x) {
-      return {x:x, y:y};
+      var cell_coords = _.clone(coords);
+      cell_coords.x = x;
+      return cell_coords;
     });
   }
 })
